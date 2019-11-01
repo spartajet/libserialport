@@ -32,7 +32,9 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
+#ifndef _MSC_VER
 #include <unistd.h>
+#endif
 #include <stdlib.h>
 #include <errno.h>
 #include <stdio.h>
@@ -107,7 +109,8 @@ struct sp_port {
 	OVERLAPPED read_ovl;
 	OVERLAPPED wait_ovl;
 	DWORD events;
-	BYTE pending_byte;
+	BYTE *write_buf;
+	DWORD write_buf_size;
 	BOOL writing;
 	BOOL wait_running;
 #else
